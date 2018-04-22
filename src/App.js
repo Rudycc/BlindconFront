@@ -17,8 +17,6 @@ class App extends Component {
         distance: 0,
         time: 0,
       },
-      displayError: false,
-      errorMessage: "",
     }
   }
 
@@ -155,20 +153,20 @@ class App extends Component {
   }
 
   renderHeader = () => (
-    <li style={{listStyleType: 'none'}}>
+    <li style={{listStyleType: 'none', paddingBottom: '15px'}}>
       <div style={{ width: '25%', display: 'inline-block' }}>
         Origen
       </div>
       <div style={{ width: '25%', display: 'inline-block' }}>
         Destino
       </div>
-      <div style={{ width: '5%', display: 'inline-block' }}>
+      <div style={{ width: '10%', display: 'inline-block' }}>
         Activo
       </div>
-      <div style={{ width: '15%', display: 'inline-block' }}>
+      <div style={{ width: '10%', display: 'inline-block' }}>
       Distancia
       </div>
-      <div style={{ width: '15%', display: 'inline-block' }}>
+      <div style={{ width: '10%', display: 'inline-block' }}>
       Tiempo(s)
       </div>
       <div style={{ width: '15%', display: 'inline-block' }}>
@@ -178,7 +176,7 @@ class App extends Component {
   )
 
   renderRow = (row, i) => (
-    <li style={{listStyleType: 'none'}}>
+    <li style={{listStyleType: 'none', paddingBottom: '15px'}}>
       <div style={{ width: '25%', display: 'inline-block' }}>
         {row.from.place}
       </div>
@@ -194,14 +192,18 @@ class App extends Component {
   )
 
   renderAddRoute = () => (
-    <li style={{listStyleType: 'none'}}>
+    <li style={{listStyleType: 'none', paddingBottom: '15px'}}>
      <form>
-        <select style={{ width: '22%', display: 'inline-block' }} onChange={this.updateForm('from')} value={this.state.form.from}>
-          { this.state.places.map(this.renderOption) }
-        </select>
-        <select style={{ width: '22%', display: 'inline-block' }} onChange={this.updateForm('to')} value={this.state.form.to}>
-          { this.state.places.map(this.renderOption) }
-        </select>
+        <div style={{ width: '25%', display: 'inline-block' }}>
+          <select onChange={this.updateForm('from')} value={this.state.form.from}>
+            { this.state.places.map(this.renderOption) }
+          </select>
+        </div>
+        <div style={{ width: '25%', display: 'inline-block' }}>
+          <select onChange={this.updateForm('to')} value={this.state.form.to}>
+            { this.state.places.map(this.renderOption) }
+          </select>
+        </div>
         <input type='checkbox' onChange={this.toggleActive} style={{ width: '5%', display: 'inline-block' }} checked={this.state.form.active} />
         <input type='number' value={this.state.form.distance} onChange={this.updateForm('distance')} style={{ width: '10%', display: 'inline-block' }} />
         <input type='number' value={this.state.form.time} onChange={this.updateForm('time')} style={{ width: '10%', display: 'inline-block' }} />
@@ -216,14 +218,13 @@ class App extends Component {
   )
 
   render() {
-    console.log(this.state)
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">BlindCon</h1>
         </header>
         <div>
-          <ul>
+          <ul style={{paddingLeft: '10px', textAlign: 'left'}}>
             {this.renderHeader()}
             {this.state.routes.map(this.renderRow)}
             {this.renderAddRoute()}
