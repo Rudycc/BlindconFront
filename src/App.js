@@ -28,8 +28,8 @@ class App extends Component {
     axios.get('api/places').then(({data: places}) => {
       const routes = []
       places.forEach((place, i) => {
-        for(let key in place.links) {
-          if(places.findIndex(p => p.place === key) > i) {
+        for (let key in place.links) {
+          if (places.findIndex(p => p.place === key) > i) {
             let { active, weight, distance, time } = place.links[key]
             let to = places.find(p => p.place === key)
             let route = {
@@ -129,7 +129,7 @@ class App extends Component {
 
   updateRouteForm = (index) => (key) => (event) => {
     let newRoute = [...this.state.routes]
-    newRoute[index][key] = event.target.value < 0 || isNaN(Number(event.target.value))? 0: Number(event.target.value)
+    newRoute[index][key] = event.target.value < 0 || isNaN(Number(event.target.value)) ? 0 : Number(event.target.value)
     this.setState({
       routes: newRoute,
     })
@@ -153,64 +153,60 @@ class App extends Component {
   }
 
   renderHeader = () => (
-    <li style={{listStyleType: 'none', paddingBottom: '15px'}}>
-      <div style={{ width: '25%', display: 'inline-block' }}>
-        Origen
-      </div>
-      <div style={{ width: '25%', display: 'inline-block' }}>
-        Destino
-      </div>
-      <div style={{ width: '10%', display: 'inline-block' }}>
-        Activo
-      </div>
-      <div style={{ width: '10%', display: 'inline-block' }}>
-      Distancia
-      </div>
-      <div style={{ width: '10%', display: 'inline-block' }}>
-      Tiempo(s)
-      </div>
-      <div style={{ width: '15%', display: 'inline-block' }}>
-      Peso
-      </div>
-    </li>
+    <tr className="table-header">
+      <td>Origen</td>
+      <td>Destino</td>
+      <td>Activo</td>
+      <td>Distancia</td>
+      <td>Tiempo(s)</td>
+      <td>Peso</td>
+    </tr>
   )
 
   renderRow = (row, i) => (
-    <li style={{listStyleType: 'none', paddingBottom: '15px'}}>
-      <div style={{ width: '25%', display: 'inline-block' }}>
+    <tr className="table-row">
+      <td>
         {row.from.place}
-      </div>
-      <div style={{ width: '25%', display: 'inline-block' }}>
+      </td>
+      <td>
         {row.to.place}
-      </div>
-      <input type='checkbox' onChange={this.toggleEditActive(i)} style={{ width: '5%', display: 'inline-block' }} checked={row.active} />
-      <input type='number' onChange={this.updateRouteForm(i)('distance')} value={row.distance} style={{ width: '10%', display: 'inline-block' }} />
-      <input type='number' onChange={this.updateRouteForm(i)('time')} value={row.time} style={{ width: '10%', display: 'inline-block' }} />
-      <input type='number' onChange={this.updateRouteForm(i)('weight')} value={row.weight} style={{ width: '10%', display: 'inline-block' }} />
-      <input type='button' value='Actualizar ruta' onClick={this.updateRoute(i)} />
-    </li>
+      </td>
+      <td>
+        <input type='checkbox' onChange={this.toggleEditActive(i)} checked={row.active} />
+      </td>
+      <td>
+        <input type='number' onChange={this.updateRouteForm(i)('distance')} value={row.distance}/>
+      </td>
+      <td>
+        <input type='number' onChange={this.updateRouteForm(i)('time')} value={row.time} />
+      </td>
+      <td>
+        <input type='number' onChange={this.updateRouteForm(i)('weight')} value={row.weight}/>
+      </td>
+      <td>
+        <input type='button' value='Actualizar ruta' onClick={this.updateRoute(i)} />
+      </td>
+    </tr>
   )
 
   renderAddRoute = () => (
-    <li style={{listStyleType: 'none', paddingBottom: '15px'}}>
-     <form>
-        <div style={{ width: '25%', display: 'inline-block' }}>
-          <select onChange={this.updateForm('from')} value={this.state.form.from}>
-            { this.state.places.map(this.renderOption) }
-          </select>
-        </div>
-        <div style={{ width: '25%', display: 'inline-block' }}>
-          <select onChange={this.updateForm('to')} value={this.state.form.to}>
-            { this.state.places.map(this.renderOption) }
-          </select>
-        </div>
-        <input type='checkbox' onChange={this.toggleActive} style={{ width: '5%', display: 'inline-block' }} checked={this.state.form.active} />
-        <input type='number' value={this.state.form.distance} onChange={this.updateForm('distance')} style={{ width: '10%', display: 'inline-block' }} />
-        <input type='number' value={this.state.form.time} onChange={this.updateForm('time')} style={{ width: '10%', display: 'inline-block' }} />
-        <input type='number' value={this.state.form.weight} onChange={this.updateForm('weight')} style={{ width: '10%', display: 'inline-block' }} />
-        <input type='button' value='Agregar ruta' onClick={this.addRoute} />
-      </form>
-    </li>
+    <form>
+      <div>
+        <select onChange={this.updateForm('from')} value={this.state.form.from}>
+          { this.state.places.map(this.renderOption) }
+        </select>
+      </div>
+      <div>
+        <select onChange={this.updateForm('to')} value={this.state.form.to}>
+          { this.state.places.map(this.renderOption) }
+        </select>
+      </div>
+      <input type='checkbox' onChange={this.toggleActive} checked={this.state.form.active} />
+      <input type='number' value={this.state.form.distance} onChange={this.updateForm('distance')}/>
+      <input type='number' value={this.state.form.time} onChange={this.updateForm('time')}/>
+      <input type='number' value={this.state.form.weight} onChange={this.updateForm('weight')}/>
+      <input type='button' value='Agregar ruta' onClick={this.addRoute} />
+    </form>
   )
 
   renderOption = (place, i) => (
@@ -224,11 +220,15 @@ class App extends Component {
           <h1 className="App-title">BlindCon</h1>
         </header>
         <div>
-          <ul style={{paddingLeft: '10px', textAlign: 'left'}}>
-            {this.renderHeader()}
-            {this.state.routes.map(this.renderRow)}
-            {this.renderAddRoute()}
-          </ul>
+          <table>
+            <thead>
+              {this.renderHeader()}
+            </thead>
+            <tbody>
+              {this.state.routes.map(this.renderRow)}
+            </tbody>
+          </table>
+          {this.renderAddRoute()}
         </div>
       </div>
     );
