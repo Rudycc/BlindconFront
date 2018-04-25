@@ -52,7 +52,8 @@ input[type="button"] {
   transition: 0.1s;
 }
 
-input[type="button"]:hover {
+input[type="button"]:hover,
+select:hover {
   background-color: cyan;
 }
 
@@ -73,6 +74,41 @@ table {
   padding: 0 5rem;
   margin: 2.5rem 0;
   border: none;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.add-route {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.add-route div,
+.add-route span {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 4rem;
+  align-items: center;
+  margin: 0.25rem 0.5rem;
+}
+
+.add-route label {
+  display: block;
+  height: 2rem;
+}
+
+.add-route input[type="checkbox"] {
+  margin-bottom: 10px;
+}
+
+.add-route input[type="button"] {
+  height: 2rem;
+  align-self: flex-end;
+  margin: 0.25rem 0.5rem;
 }
 
 @keyframes App-logo-spin {

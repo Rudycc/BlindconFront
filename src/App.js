@@ -190,21 +190,35 @@ class App extends Component {
   )
 
   renderAddRoute = () => (
-    <form>
+    <form className="add-route">
       <div>
+        <label>Origen</label>
         <select onChange={this.updateForm('from')} value={this.state.form.from}>
           { this.state.places.map(this.renderOption) }
         </select>
       </div>
       <div>
+        <label>Destino</label>
         <select onChange={this.updateForm('to')} value={this.state.form.to}>
           { this.state.places.map(this.renderOption) }
         </select>
       </div>
-      <input type='checkbox' onChange={this.toggleActive} checked={this.state.form.active} />
-      <input type='number' value={this.state.form.distance} onChange={this.updateForm('distance')}/>
-      <input type='number' value={this.state.form.time} onChange={this.updateForm('time')}/>
-      <input type='number' value={this.state.form.weight} onChange={this.updateForm('weight')}/>
+      <span>
+        <label>Activo</label>
+        <input type='checkbox' onChange={this.toggleActive} checked={this.state.form.active} />
+      </span>
+      <span>
+        <label>Distancia</label>
+        <input type='number' value={this.state.form.distance} onChange={this.updateForm('distance')}/>
+      </span>
+      <span>
+        <label>Tiempo</label>
+        <input type='number' value={this.state.form.time} onChange={this.updateForm('time')}/>
+      </span>
+      <span>
+        <label>Peso</label>
+        <input type='number' value={this.state.form.weight} onChange={this.updateForm('weight')}/>
+      </span>
       <input type='button' value='Agregar ruta' onClick={this.addRoute} />
     </form>
   )
@@ -219,7 +233,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">BlindCon</h1>
         </header>
-        <div>
+        <div className="table-container">
           <table>
             <thead>
               {this.renderHeader()}
@@ -228,8 +242,8 @@ class App extends Component {
               {this.state.routes.map(this.renderRow)}
             </tbody>
           </table>
-          {this.renderAddRoute()}
         </div>
+        {this.renderAddRoute()}
       </div>
     );
   }
